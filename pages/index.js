@@ -1,10 +1,11 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import { v4 as uuidv4 } from "uuid";
+
 // import Image from "next/image";
 // import Link from "next/link";
 
 export default function Home(props) {
-    console.log(props);
     return (
         <>
             <Head>
@@ -20,7 +21,7 @@ export default function Home(props) {
                 <table className={styles.tableau}>
                     <tbody>
                         {props.array.map((el) => (
-                            <tr>
+                            <tr key={uuidv4()}>
                                 <td>{el.en}</td>
                                 <td>{el.fr}</td>
                             </tr>
@@ -38,6 +39,20 @@ export default function Home(props) {
 export async function getStaticProps() {
     const data = await import(`/data/vocabulary.json`);
     const array = data.vocabulary;
+
+    // if (array.length === 0) {
+    //     return {
+    //         notFound: true,
+    //     };
+    // }
+
+    // if (array.length === 0) {
+    //     return {
+    //         redirect: {
+    //             destination: "/isr",
+    //         },
+    //     };
+    // }
 
     return {
         props: {
