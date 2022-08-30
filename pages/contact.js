@@ -1,13 +1,25 @@
 import React from "react";
 
-export default function contact() {
-    const pushFunc = () => {
-        router.push("/");
-    };
+export default function contact(props) {
+    console.log(props);
+
     return (
         <div>
             <h1>Contact</h1>
-            <button onClick={pushFunc}>Push to Home</button>
         </div>
     );
 }
+
+export async function getStaticProps() {
+    const quote = await fetch("https://pokeapi.co/api/v2/pokedex/");
+    const data = await quote.json();
+
+    return {
+        props: {
+            data: data.results,
+        },
+        revalidate: 20,
+    };
+}
+
+// https://goquotes-api.herokuapp.com/api/v1/random?count=1
