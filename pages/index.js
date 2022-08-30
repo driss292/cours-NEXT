@@ -1,27 +1,47 @@
 import Head from "next/head";
-// import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Link from "next/link";
+// import Image from "next/image";
+// import Link from "next/link";
 
-export default function Home() {
-    const id = "article";
+export default function Home(props) {
+    console.log(props);
     return (
         <>
             <Head>
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                 />
                 <title>Cours NEXT</title>
             </Head>
-            <div className={styles.container}>
-                <h1>Hello NEXT JS !!!</h1>
-                {/* <a href="https://google.com">GOOGLE</a> */}
-                <Link href={`/blog/${id}`}>
+            <div>
+                <h1 className={styles.titre}>Vocabulaire de base</h1>
+                <table className={styles.tableau}>
+                    <tbody>
+                        {props.array.map((el) => (
+                            <tr>
+                                <td>{el.en}</td>
+                                <td>{el.fr}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                {/* <Link href={`/blog/${id}`}>
                     <a className="btn btn-primary">Blog</a>
-                </Link>
+                </Link> */}
             </div>
         </>
     );
+}
+
+export async function getStaticProps() {
+    const data = await import(`/data/vocabulary.json`);
+    const array = data.vocabulary;
+
+    return {
+        props: {
+            array,
+        },
+    };
 }
