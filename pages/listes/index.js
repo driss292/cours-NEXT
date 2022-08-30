@@ -3,7 +3,7 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function index(props) {
-    console.log(props);
+    // console.log(props);
 
     return (
         <div className="container">
@@ -11,8 +11,8 @@ export default function index(props) {
             <ul className="list-group">
                 {props.array.map((item) => (
                     <li key={uuidv4()} className="list-group-item">
-                        <Link href={Object.keys(item)[0]}>
-                            <a>{Object.keys(item)[0]}</a>
+                        <Link href={`/listes/${item.name}`}>
+                            <a>{item.name}</a>
                         </Link>
                     </li>
                 ))}
