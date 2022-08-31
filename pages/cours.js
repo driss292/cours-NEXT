@@ -10,7 +10,7 @@ export default function cours(props) {
 }
 
 export async function getServerSideProps(context) {
-    console.log("CONTEXT", context);
+    // console.log("CONTEXT", context);
     const data = await fetch(
         "https://api.coindesk.com/v1/bpi/currentprice.json"
     );
