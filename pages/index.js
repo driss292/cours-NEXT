@@ -1,11 +1,33 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { v4 as uuidv4 } from "uuid";
+import { useEffect, useState } from "react";
 
 // import Image from "next/image";
 // import Link from "next/link";
 
 export default function Home(props) {
+    const [state, setState] = useState(false);
+
+    useEffect(() => {
+        newWord();
+    }, []);
+
+    const newWord = () => {
+        fetch("/api/vocapi")
+            .then((res) => res.json())
+            .then((data) => setState(data));
+    };
+
+    // console.log(state);
+
+    let randomWord;
+    if (state) {
+        const array = state.englishList[0].data;
+        randomWord = array[Math.floor(Math.random() * array.length)].en;
+        // console.log(randomWord);
+    }
+
     return (
         <>
             <Head>
@@ -17,8 +39,15 @@ export default function Home(props) {
                 <title>Cours NEXT</title>
             </Head>
             <div>
-                <h1 className={styles.titre}>Vocabulaire de base</h1>
-                <table className={styles.tableau}>
+                <h1 className={styles.titre}>Mot au hasard</h1>
+                <button
+                    onClick={newWord}
+                    className="btn btn-primary d-block m-auto "
+                >
+                    Get Random Words
+                </button>
+                <h2 className="text-center">{randomWord}</h2>
+                {/* <table className={styles.tableau}>
                     <tbody>
                         {props.array.map((el) => (
                             <tr key={uuidv4()}>
@@ -26,8 +55,8 @@ export default function Home(props) {
                                 <td>{el.fr}</td>
                             </tr>
                         ))}
-                    </tbody>
-                </table>
+                    </tbody> 
+                </table> */}
                 {/* <Link href={`/blog/${id}`}>
                     <a className="btn btn-primary">Blog</a>
                 </Link> */}
