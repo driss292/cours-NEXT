@@ -3,14 +3,14 @@ import styles from "../../styles/Home.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 
-export default function liste(props) {
+export default function Liste(props) {
     // console.log(props);
+    const router = useRouter();
 
     if (!props.listsEnCours) {
         return <h1>Chargement</h1>;
     }
 
-    const router = useRouter();
     return (
         <div className="container">
             <h1 className={styles.titre}>
